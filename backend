@@ -1,6 +1,6 @@
 {
-  [
+  "search": [
     {"title": "Title1"},
-    {"title": "Title2"},
+    {"title": "Title2"}
   ]
 }
