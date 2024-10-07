@@ -12,8 +12,7 @@ struct SettingsTabReducer {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.swiftUICounterEnabled) var swiftUICounterEnabled
-        @Shared(.swiftUIWeatherEnabled) var swiftUIWeatherEnabled
+        @Shared(.searchEnabled) var searchEnabled
     }
     
     enum Action: Equatable, BindableAction {
@@ -43,14 +42,8 @@ struct SettingsTabReducer {
 }
 
 extension PersistenceReaderKey where Self == PersistenceKeyDefault<InMemoryKey<Bool>> {
-    static var swiftUIWeatherEnabled: Self {
-        PersistenceKeyDefault(.inMemory("swiftUIWeatherEnabled"), true)
-    }
-}
-
-extension PersistenceReaderKey where Self == PersistenceKeyDefault<InMemoryKey<Bool>> {
-    static var swiftUICounterEnabled: Self {
-        PersistenceKeyDefault(.inMemory("swiftUICounterEnabled"), true)
+    static var searchEnabled: Self {
+        PersistenceKeyDefault(.inMemory("searchEnabled"), true)
     }
 }
 

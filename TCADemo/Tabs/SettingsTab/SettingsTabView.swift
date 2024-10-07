@@ -14,8 +14,7 @@ struct SettingsTabView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
-                Toggle("SwiftUI Counter", isOn: $store.swiftUICounterEnabled)
-                Toggle("SwiftUI Weather", isOn: $store.swiftUIWeatherEnabled)
+                Toggle("Search", isOn: $store.searchEnabled)
                 Button(action: { store.send(.onLogoutButtonTapped) }, label: { Text("Выход") })
             }
             .padding()

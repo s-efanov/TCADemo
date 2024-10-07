@@ -1,12 +1,12 @@
 import UIKit
 import ComposableArchitecture
 
-class UIKitWeatherView: UIViewController {
-    let store: StoreOf<UIKitWeatherReducer>
+class EventVC: UIViewController {
+    let store: StoreOf<EventReducer>
     private let label = UILabel()
     private let activityView = UIActivityIndicatorView()
     
-    init(store: StoreOf<UIKitWeatherReducer>) {
+    init(store: StoreOf<EventReducer>) {
         self.store = store
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,19 +30,19 @@ class UIKitWeatherView: UIViewController {
         
         activityView.hidesWhenStopped = true
         
-        observe { [weak self] in
-            guard let self else { return }
-            if store.isLoading {
-                activityView.startAnimating()
-            } else {
-                activityView.stopAnimating()
-            }
-            if let temperature = store.temperature {
-                label.text = "\(String(format: "%.1f", temperature)) ℃"
-            }
-        }
-        
-        store.send(.onAppear)
+//        observe { [weak self] in
+//            guard let self else { return }
+//            if store.isLoading {
+//                activityView.startAnimating()
+//            } else {
+//                activityView.stopAnimating()
+//            }
+//            if let temperature = store.temperature {
+//                label.text = "\(String(format: "%.1f", temperature)) ℃"
+//            }
+//        }
+//        
+//        store.send(.onAppear)
     }
     
     override func viewWillAppear(_ animated: Bool) {

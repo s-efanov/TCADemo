@@ -32,22 +32,26 @@ extension AppReducer {
         
         func resolveSwiftUI(state: inout State, components: URLComponents) -> Effect<Action> {
             switch components.path {
-            case "counter":
+            case "profile":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
-                        swiftUITab: SwiftUITabReducer.State(
-                            path: StackState<SwiftUITabPath.State>([.swiftUICounter(SwiftUICounterReducer.State())])
+                        swiftUITab: TabReducer.State(
+                            path: StackState<TabPath.State>([
+                                .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
+                            ])
                         )
                     )
                 )
                 return .none
-            case "weather":
+            case "event":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
-                        swiftUITab: SwiftUITabReducer.State(
-                            path: StackState<SwiftUITabPath.State>([.swiftUIWeather(SwiftUIWeatherReducer.State())])
+                        swiftUITab: TabReducer.State(
+                            path: StackState<TabPath.State>([
+                                .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
+                            ])
                         )
                     )
                 )
@@ -59,22 +63,26 @@ extension AppReducer {
         
         func resolveUIKit(state: inout State, components: URLComponents) -> Effect<Action> {
             switch components.path {
-            case "counter":
+            case "profile":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,
-                        uiKitTab: UIKitTabReducer.State(
-                            path: StackState<UIKitTabPath.State>([.uiKitCounter(UIKitCounterReducer.State())])
+                        uiKitTab: TabReducer.State(
+                            path: StackState<TabPath.State>([
+                                .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
+                            ])
                         )
                     )
                 )
                 return .none
-            case "weather":
+            case "event":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,
-                        uiKitTab: UIKitTabReducer.State(
-                            path: StackState<UIKitTabPath.State>([.uiKitWeather(UIKitWeatherReducer.State())])
+                        uiKitTab: TabReducer.State(
+                            path: StackState<TabPath.State>([
+                                .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
+                            ])
                         )
                     )
                 )

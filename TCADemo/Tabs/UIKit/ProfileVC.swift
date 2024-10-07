@@ -8,13 +8,13 @@
 import UIKit
 import ComposableArchitecture
 
-class UIKitCounterVC: UIViewController {
-    let store: StoreOf<UIKitCounterReducer>
+class ProfileVC: UIViewController {
+    let store: StoreOf<ProfileReducer>
     private let label = UILabel()
     private let plusButton = UIButton(type: .custom)
     private let minusButton = UIButton(type: .custom)
     
-    init(store: StoreOf<UIKitCounterReducer>) {
+    init(store: StoreOf<ProfileReducer>) {
         self.store = store
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,10 +39,10 @@ class UIKitCounterVC: UIViewController {
         
         minusButton.setImage(UIImage(systemName: "minus"), for: .normal)
         minusButton.translatesAutoresizingMaskIntoConstraints = false
-        minusButton.addAction(
-            UIAction { [weak self] _ in self?.store.send(.onTapMinusButton) },
-            for: .touchUpInside
-        )
+//        minusButton.addAction(
+//            UIAction { [weak self] _ in self?.store.send(.onTapMinusButton) },
+//            for: .touchUpInside
+//        )
         NSLayoutConstraint.activate([
             minusButton.widthAnchor.constraint(equalToConstant: 50),
             minusButton.heightAnchor.constraint(equalToConstant: 50),
@@ -54,10 +54,10 @@ class UIKitCounterVC: UIViewController {
         
         plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
         plusButton.translatesAutoresizingMaskIntoConstraints = false
-        plusButton.addAction(
-            UIAction { [weak self] _ in self?.store.send(.onTapPlusButton) },
-            for: .touchUpInside
-        )
+//        plusButton.addAction(
+//            UIAction { [weak self] _ in self?.store.send(.onTapPlusButton) },
+//            for: .touchUpInside
+//        )
         
         NSLayoutConstraint.activate([
             plusButton.widthAnchor.constraint(equalToConstant: 50),
@@ -66,9 +66,9 @@ class UIKitCounterVC: UIViewController {
             plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 20)
         ])
 
-        observe { [weak self] in
-            guard let self else { return }
-            label.text = "Count: \(store.counter)"
-        }
+//        observe { [weak self] in
+//            guard let self else { return }
+//            label.text = "Count: \(store.counter)"
+//        }
     }
 }
