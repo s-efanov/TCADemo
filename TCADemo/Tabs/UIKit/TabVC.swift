@@ -10,7 +10,7 @@ import UIKit
 import ComposableArchitecture
 
 struct UIKitTabView: View {
-    let store: StoreOf<UIKitTabReducer>
+    let store: StoreOf<TabReducer>
     
     var body: some View {
         WithPerceptionTracking {
@@ -21,13 +21,13 @@ struct UIKitTabView: View {
     }
 }
 
-class UIKitTabVC: UIViewController {
-    private let store: StoreOf<UIKitTabReducer>
+class TabVC: UIViewController {
+    private let store: StoreOf<TabReducer>
     private let stackView = UIStackView()
     private let uiKitCounterButton = UIButton(type: .custom)
     private let uiKitWeatherButton = UIButton(type: .custom)
     
-    init(store: StoreOf<UIKitTabReducer>) {
+    init(store: StoreOf<TabReducer>) {
         self.store = store
         super.init(nibName: nil, bundle: nil)
     }
@@ -54,35 +54,35 @@ class UIKitTabVC: UIViewController {
         uiKitCounterButton.setTitle("UIKit Counter", for: .normal)
         uiKitCounterButton.setTitleColor(.systemBlue, for: .normal)
 
-        uiKitCounterButton.addAction(
-            UIAction { [weak self] _ in self?.store.send(.onTapUIKitCounterButton) },
-            for: .touchUpInside
-        )
+//        uiKitCounterButton.addAction(
+//            UIAction { [weak self] _ in self?.store.send(.onTapUIKitCounterButton) },
+//            for: .touchUpInside
+//        )
 
         uiKitWeatherButton.setTitle("UIKit Weather", for: .normal)
         uiKitWeatherButton.setTitleColor(.systemBlue, for: .normal)
-        uiKitWeatherButton.addAction(
-            UIAction { [weak self] _ in self?.store.send(.onTapUIKitWeatherButton) },
-            for: .touchUpInside
-        )
+//        uiKitWeatherButton.addAction(
+//            UIAction { [weak self] _ in self?.store.send(.onTapUIKitWeatherButton) },
+//            for: .touchUpInside
+//        )
     }
 }
 
 
 class UIKitNavController: NavigationStackController {
-    private var store: StoreOf<UIKitTabReducer>!
+    private var store: StoreOf<TabReducer>!
     
-    convenience init(store: StoreOf<UIKitTabReducer>) {
+    convenience init(store: StoreOf<TabReducer>) {
         @UIBindable var store = store
         
         self.init(path: $store.scope(state: \.path, action: \.path)) {
-            UIKitTabVC(store: store)
+            TabVC(store: store)
         } destination: { store in
             switch store.case {
-            case .uiKitCounter(let store):
-                UIKitCounterVC(store: store)
-            case .uiKitWeather(let store):
-                UIKitWeatherView(store: store)
+            case .profile(let store):
+                ProfileVC(store: store)
+            case .event(let store):
+                EventVC(store: store)
             }
         }
     }

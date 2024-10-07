@@ -14,6 +14,8 @@ struct SwiftUITabReducer {
         @SharedReader(.swiftUICounterEnabled) var swiftUICounterEnabled
         @SharedReader(.swiftUIWeatherEnabled) var swiftUIWeatherEnabled
         var path = StackState<SwiftUITabPath.State>()
+        var calendarItems = [CalendarItem]()
+        var searchItems = [SearchItem]()
     }
     
     enum Action: Equatable {

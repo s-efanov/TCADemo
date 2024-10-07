@@ -14,16 +14,16 @@ struct TabsReducer {
     struct State: Equatable {
         var currentTab: Tab = .swiftUI
         
-        var swiftUITab = SwiftUITabReducer.State()
-        var uiKitTab = UIKitTabReducer.State()
+        var swiftUITab = TabReducer.State()
+        var uiKitTab = TabReducer.State()
         var settingsTab = SettingsTabReducer.State()
     }
     
     enum Action: Equatable, BindableAction {
         case binding(BindingAction<State>)
         
-        case swiftUITab(SwiftUITabReducer.Action)
-        case uiKitTab(UIKitTabReducer.Action)
+        case swiftUITab(TabReducer.Action)
+        case uiKitTab(TabReducer.Action)
         case settingsTab(SettingsTabReducer.Action)
     }
     
@@ -31,10 +31,10 @@ struct TabsReducer {
         BindingReducer()
         
         Scope(state: \.swiftUITab, action: \.swiftUITab) {
-            SwiftUITabReducer()
+            TabReducer()
         }
         Scope(state: \.uiKitTab, action: \.uiKitTab) {
-            UIKitTabReducer()
+            TabReducer()
         }
         Scope(state: \.settingsTab, action: \.settingsTab) {
             SettingsTabReducer()
