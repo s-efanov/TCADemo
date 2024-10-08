@@ -15,17 +15,21 @@ extension TabReducer {
         func reduce(into state: inout State, action: Action) -> Effect<Action> {
             switch action {
             case .ui(.onTapStartSearch):
-                analyticService.send("onTapStartSearch")
-                return .none
+                return .run { send in
+                    analyticService.send("onTapStartSearch")
+                }
             case .ui(.onTapClear):
-                analyticService.send("onTapClear")
-                return .none
+                return .run { send in
+                    analyticService.send("onTapClear")
+                }
             case .ui(.onTapSearchItem):
-                analyticService.send("onTapSearchItem")
-                return .none
+                return .run { send in
+                    analyticService.send("onTapSearchItem")
+                }
             case .ui(.onTapCalendarEvent):
-                analyticService.send("onTapCalendarEvent")
-                return .none
+                return .run { send in
+                    analyticService.send("onTapCalendarEvent")
+                }
             default:
                 return .none
             }

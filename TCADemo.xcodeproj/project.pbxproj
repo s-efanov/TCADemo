@@ -41,16 +41,6 @@
 			);
 			target = B88F7CAC2C9C9D210040689B /* TCADemo */;
 		};
-		B880D40E2CB3E5D000A0059C /* Exceptions for "TCADemo" folder in "TCADemoTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Repo/AnalyticService/AnalyticService.swift,
-				"Repo/AnalyticService/AnalyticService+Dependency.swift",
-				Repo/AnalyticService/AnalyticServiceImpl.swift,
-				Repo/AnalyticService/AnalyticServiceMock.swift,
-			);
-			target = B88F7CBD2C9C9D220040689B /* TCADemoTests */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,7 +48,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B8481D712C9FD973006466B1 /* Exceptions for "TCADemo" folder in "TCADemo" target */,
-				B880D40E2CB3E5D000A0059C /* Exceptions for "TCADemo" folder in "TCADemoTests" target */,
 			);
 			path = TCADemo;
 			sourceTree = "<group>";

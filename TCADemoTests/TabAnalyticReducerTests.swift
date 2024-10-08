@@ -11,24 +11,18 @@ import ComposableArchitecture
 
 @Suite
 struct TabAnalyticReducerTests {
-    @Test
+    @Test @MainActor
     func onTapStartSearch() async {
-        var mock = AnalyticServiceMock()
+        let analyticMock = AnalyticServiceMock()
         
-        let store = await TestStore(initialState: TabReducer.State()) {
+        let store = TestStore(initialState: TabReducer.State()) {
             TabReducer.AnalyticReducer()
         } withDependencies: {
-            $0.context = .test
-            $0.analyticService = mock
+            $0.analyticService = analyticMock
         }
 
         await store.send(.ui(.onTapStartSearch))
-        let events = (store.dependencies.analyticService as? AnalyticServiceMock)?.events
-        print(store.dependencies.analyticService)
-        print((store.dependencies.analyticService as! AnalyticServiceMock))
-        print((store.dependencies.analyticService as? AnalyticServiceMock)!.events)
-        print(mock.events)
-        #expect(events == [])
+        #expect(analyticMock.events == ["onTapStartSearch"])
     }
 }
 
