@@ -16,7 +16,6 @@ extension TabReducer {
             guard case let .searchRequest(searchAction) = action else { return .none }
             switch searchAction {
             case .start:
-//                state.isLoading = true
                 return .run { send in
                     do {
                         try await send(.searchRequest(.onSuccess(searchRepo.get())))
@@ -24,12 +23,9 @@ extension TabReducer {
                         await send(.searchRequest(.onError))
                     }
                 }
-            case let .onSuccess(value):
-//                state.isLoading = false
-                //            state.temperature = value
+            case .onSuccess:
                 return .none
             case .onError:
-//                state.isLoading = false
                 return .none
             }
         }

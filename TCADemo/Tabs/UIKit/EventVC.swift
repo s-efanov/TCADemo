@@ -3,8 +3,10 @@ import ComposableArchitecture
 
 class EventVC: UIViewController {
     let store: StoreOf<EventReducer>
-    private let label = UILabel()
-    private let activityView = UIActivityIndicatorView()
+    private let titleLabel = UILabel()
+    private let timeLabel = UILabel()
+    private let uiKitLabel = UILabel()
+    private let calendarStackView = UIStackView()
     
     init(store: StoreOf<EventReducer>) {
         self.store = store
@@ -19,34 +21,31 @@ class EventVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(label)
-        label.text = ""
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(uiKitLabel)
+        uiKitLabel.text = "UIKit"
+        uiKitLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            uiKitLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            uiKitLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        activityView.hidesWhenStopped = true
         
-//        observe { [weak self] in
-//            guard let self else { return }
-//            if store.isLoading {
-//                activityView.startAnimating()
-//            } else {
-//                activityView.stopAnimating()
-//            }
-//            if let temperature = store.temperature {
-//                label.text = "\(String(format: "%.1f", temperature)) ℃"
-//            }
-//        }
-//        
-//        store.send(.onAppear)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        view.addSubview(calendarStackView)
+        calendarStackView.axis = .vertical
+        calendarStackView.alignment = .center
+        calendarStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            calendarStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        calendarStackView.addArrangedSubview(titleLabel)
+        calendarStackView.addArrangedSubview(timeLabel)
 
+        observe { [weak self] in
+            guard let self else { return }
+            titleLabel.text = store.calendarItem.title
+            timeLabel.text = store.calendarItem.from + " - " + store.calendarItem.to
+        }
     }
 }

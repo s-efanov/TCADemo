@@ -6,12 +6,13 @@ struct CalendarView: View {
     
     var body: some View {
         VStack {
+            Text("SwiftUI")
             if store.searchEnabled {
                 HStack {
                     TextField("Поиск", text: $store.searchText)
-                        .padding(4)
+                        .padding(8)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(Color.gray.opacity(0.5), lineWidth: 1))
+                        .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color.gray.opacity(0.5), lineWidth: 1))
                     if store.screenState.items.isEmpty {
                         Button("Найти", action: { store.send(.ui(.onTapStartSearch)) })
                     } else {
@@ -54,6 +55,7 @@ struct CalendarView: View {
                 ProgressView()
             }
         }
+        .padding(.top, 40)
         .task {
             store.send(.onAppear)
         }

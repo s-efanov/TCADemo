@@ -13,8 +13,10 @@ struct EventView: View {
     
     var body: some View {
         WithPerceptionTracking { // Обязательно для iOS 16 и ниже
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
+            VStack {
+                Text("SwiftUI")
+                Spacer()
+                VStack(alignment: .center, spacing: 4) {
                     Text(store.calendarItem.title)
                     Text(store.calendarItem.from + " - " + store.calendarItem.to)
                 }

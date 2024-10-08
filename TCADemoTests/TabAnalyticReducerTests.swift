@@ -9,13 +9,27 @@ import Testing
 @testable import TCADemo
 import ComposableArchitecture
 
+@Suite
 struct TabAnalyticReducerTests {
-    @Test func onTapStartSearch() async {
-        let mock = AnalyticServiceMock()
-        let store = await makeStore(analyticService: mock)
-        await store.send(.ui(.onTapStartSearch))
-    }
+    @Test
+    func onTapStartSearch() async {
+        var mock = AnalyticServiceMock()
+        
+        let store = await TestStore(initialState: TabReducer.State()) {
+            TabReducer.AnalyticReducer()
+        } withDependencies: {
+            $0.context = .test
+            $0.analyticService = mock
+        }
 
+        await store.send(.ui(.onTapStartSearch))
+        let events = (store.dependencies.analyticService as? AnalyticServiceMock)?.events
+        print(store.dependencies.analyticService)
+        print((store.dependencies.analyticService as! AnalyticServiceMock))
+        print((store.dependencies.analyticService as? AnalyticServiceMock)!.events)
+        print(mock.events)
+        #expect(events == [])
+    }
 }
 
 //case .ui(.onTapStartSearch):
@@ -34,28 +48,3 @@ struct TabAnalyticReducerTests {
 //    return .run { send in
 //        await analyticService.send("onTapCalendarEvent")
 //    }
-
-@MainActor
-extension TabAnalyticReducerTests {
-    typealias Store = TestStore<TabReducer.AnalyticReducer.State, TabReducer.AnalyticReducer.Action>
-
-    func makeStore(
-        analyticService: AnalyticServiceMock,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) -> Store {
-        
-        let reducer = withDependencies {
-            $0.analyticService = analyticService
-        } operation: {
-            TabReducer.AnalyticReducer()
-        }
-        
-        return Store(
-            initialState: TabReducer.AnalyticReducer.State(),
-            reducer: { reducer },
-            file: file,
-            line: line
-        )
-    }
-}
