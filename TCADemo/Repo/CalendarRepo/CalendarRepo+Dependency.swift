@@ -3,7 +3,6 @@ import Dependencies
 
 private enum CalendarRepoKey: DependencyKey {
     static let liveValue: any CalendarRepo = CalendarRepoImpl()
-    static let testValue: any CalendarRepo = CalendarRepoMock()
 }
 
 extension DependencyValues {

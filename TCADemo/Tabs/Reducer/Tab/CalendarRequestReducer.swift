@@ -19,7 +19,7 @@ extension TabReducer {
                     do {
                         try await send(.calendarRequest(.onSuccess(calendarRepo.get())))
                     } catch {
-                        await send(.calendarRequest(.onError))
+                        await send(.calendarRequest(.onError(NetworkError(error: error))))
                     }
                 }
             case .onSuccess:
@@ -33,6 +33,6 @@ extension TabReducer {
     enum CalendarRequestAction: Equatable {
         case start
         case onSuccess([CalendarItem])
-        case onError
+        case onError(NetworkError)
     }
 }

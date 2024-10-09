@@ -7,6 +7,12 @@
 
 import Foundation
 
-struct NetworkError: Error {
+struct NetworkError: Error, Equatable {
+    init(error: Error) {
+        
+    }
     
+    init() {
+        
+    }
 }

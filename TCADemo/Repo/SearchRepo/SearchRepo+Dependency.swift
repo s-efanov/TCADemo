@@ -3,7 +3,6 @@ import Dependencies
 
 private enum SearchRepoKey: DependencyKey {
     static let liveValue: any SearchRepo = SearchRepoImpl()
-    static let testValue: any SearchRepo = SearchRepoMock()
 }
 
 extension DependencyValues {

@@ -20,7 +20,7 @@ extension TabReducer {
                     do {
                         try await send(.searchRequest(.onSuccess(searchRepo.get())))
                     } catch {
-                        await send(.searchRequest(.onError))
+                        await send(.searchRequest(.onError(NetworkError(error: error))))
                     }
                 }
             case .onSuccess:
@@ -34,6 +34,6 @@ extension TabReducer {
     enum SearchReducerAction: Equatable {
         case start
         case onSuccess([SearchItem])
-        case onError
+        case onError(NetworkError)
     }
 }

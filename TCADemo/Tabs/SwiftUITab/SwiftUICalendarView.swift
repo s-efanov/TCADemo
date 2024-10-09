@@ -5,59 +5,61 @@ struct CalendarView: View {
     @Perception.Bindable var store: StoreOf<TabReducer>
     
     var body: some View {
-        VStack {
-            Text("SwiftUI")
-            if store.searchEnabled {
-                HStack {
-                    TextField("Поиск", text: $store.searchText)
-                        .padding(8)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color.gray.opacity(0.5), lineWidth: 1))
-                    if store.screenState.items.isEmpty {
-                        Button("Найти", action: { store.send(.ui(.onTapStartSearch)) })
-                    } else {
-                        Button("Очистить", action: { store.send(.ui(.onTapClear)) })
-                    }
-                }
-                .padding(.horizontal, 8)
-            }
-            
-            switch store.screenState {
-            case .initial:
-                ScrollView(.vertical) {
-                    VStack(spacing: 16) {
-                        ForEach(store.calendarItems, id: \.title) { item in
-                            Button {
-                                store.send(.ui(.onTapCalendarEvent(item)))
-                            } label: {
-                                CalendarItemView(calendarItem: item)
-                            }
+        WithPerceptionTracking {
+            VStack {
+                Text("SwiftUI")
+                if store.searchEnabled {
+                    HStack {
+                        TextField("Поиск", text: $store.searchText)
+                            .padding(8)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color.gray.opacity(0.5), lineWidth: 1))
+                        if store.screenState.items.isEmpty {
+                            Button("Найти", action: { store.send(.ui(.onTapStartSearch)) })
+                        } else {
+                            Button("Очистить", action: { store.send(.ui(.onTapClear)) })
                         }
                     }
-                    .padding(.vertical, 8)
+                    .padding(.horizontal, 8)
                 }
-            case let .searchResult(items):
-                ScrollView(.vertical) {
-                    VStack(spacing: 16) {
-                        ForEach(items, id: \.title) { item in
-                            Button {
-                                store.send(.ui(.onTapSearchItem(item)))
-                            } label: {
-                                SearchItemView(item: item)
+                
+                switch store.screenState {
+                case .initial:
+                    ScrollView(.vertical) {
+                        VStack(spacing: 16) {
+                            ForEach(store.calendarItems, id: \.title) { item in
+                                Button {
+                                    store.send(.ui(.onTapCalendarEvent(item)))
+                                } label: {
+                                    CalendarItemView(calendarItem: item)
+                                }
                             }
                         }
+                        .padding(.vertical, 8)
                     }
-                    .padding(.vertical, 8)
+                case let .searchResult(items):
+                    ScrollView(.vertical) {
+                        VStack(spacing: 16) {
+                            ForEach(items, id: \.title) { item in
+                                Button {
+                                    store.send(.ui(.onTapSearchItem(item)))
+                                } label: {
+                                    SearchItemView(item: item)
+                                }
+                            }
+                        }
+                        .padding(.vertical, 8)
+                    }
+                case .searchError:
+                    Text("Ошибка")
+                case .loading:
+                    ProgressView()
                 }
-            case .searchError:
-                Text("Ошибка")
-            case .loading:
-                ProgressView()
             }
-        }
-        .padding(.top, 40)
-        .task {
-            store.send(.onAppear)
+            .padding(.top, 40)
+            .task {
+                store.send(.onAppear)
+            }
         }
     }
 }

@@ -3,11 +3,10 @@ import Foundation
 
 struct SearchRepoImpl: SearchRepo {
     func get() async throws -> [SearchItem] {
-        let data = try await URLSession(configuration: .ephemeral).data(from:
-               URL(string: "https://raw.githubusercontent.com/s-efanov/TCADemo/refs/heads/main/backend_search")!
-//            URL(string: "https://api.open-meteo.com/v1/forecast?latitude=53&longitude=35&current=temperature_2m")!
-        ).0
-        
+        try decode(data: try await request())
+    }
+    
+    func decode(data: Data) throws -> [SearchItem] {
         var str = String(data: data, encoding: .utf8)!
         str = str.replacingOccurrences(of: "\n", with: "", options: .literal)
         
@@ -15,7 +14,13 @@ struct SearchRepoImpl: SearchRepo {
             let response = try JSONDecoder().decode(SearchResponse.self, from: str.data(using: .utf8)!)
             return response.search
         } catch {
-            throw NetworkError()
+            throw NetworkError(error: error)
         }
+    }
+    
+    func request() async throws -> Data {
+        try await URLSession(configuration: .ephemeral).data(from: URL(
+            string: "https://raw.githubusercontent.com/s-efanov/TCADemo/refs/heads/main/backend_search"
+        )!).0
     }
 }

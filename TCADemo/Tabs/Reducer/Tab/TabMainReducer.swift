@@ -12,12 +12,6 @@ extension TabReducer {
     struct MainReducer {
         func reduce(into state: inout State, action: Action) -> Effect<Action> {
             switch action {
-                //            case .onTapSwiftUICounterButton:
-                //                state.path.append(.swiftUICounter(SwiftUICounterReducer.State()))
-                //                return .none
-                //            case .onTapSwiftUIWeatherButton:
-                //                state.path.append(.swiftUIWeather(SwiftUIWeatherReducer.State()))
-                //                return .none
             case .onAppear:
                 return .send(.calendarRequest(.start))
             case let .calendarRequest(.onSuccess(items)):

@@ -31,20 +31,27 @@ extension AppReducer {
         }
         
         func resolveSwiftUI(state: inout State, components: URLComponents) -> Effect<Action> {
+            let queryItems = components.queryItems
             switch components.path {
-            case "profile":
+            case "/profile":
+                guard let title = queryItems?.first(where: { $0.name == "title" })?.value else { return .none }
+                guard let type = queryItems?.first(where: { $0.name == "type" })?.value else { return .none }
+                
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
                         swiftUITab: TabReducer.State(
                             path: StackState<TabPath.State>([
-                                .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
+                                .profile(ProfileReducer.State(searchItem: SearchItem(
+                                    title: title,
+                                    type: type
+                                )))
                             ])
                         )
                     )
                 )
                 return .none
-            case "event":
+            case "/event":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
@@ -62,20 +69,25 @@ extension AppReducer {
         }
         
         func resolveUIKit(state: inout State, components: URLComponents) -> Effect<Action> {
+            let queryItems = components.queryItems
+            
             switch components.path {
-            case "profile":
+            case "/profile":
+                guard let title = queryItems?.first(where: { $0.name == "title" })?.value else { return .none }
+                guard let type = queryItems?.first(where: { $0.name == "type" })?.value else { return .none }
+                
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,
                         uiKitTab: TabReducer.State(
                             path: StackState<TabPath.State>([
-                                .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
+                                .profile(ProfileReducer.State(searchItem: SearchItem(title: title, type: type)))
                             ])
                         )
                     )
                 )
                 return .none
-            case "event":
+            case "/event":
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,

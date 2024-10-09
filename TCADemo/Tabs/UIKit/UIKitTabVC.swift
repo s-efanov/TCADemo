@@ -34,9 +34,7 @@ class UIKitTabVC: UIViewController, UISearchBarDelegate {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,20 +81,27 @@ class UIKitTabVC: UIViewController, UISearchBarDelegate {
         searchBar.borderStyle = .roundedRect
         searchStackView.addArrangedSubview(searchBar)
 
-        searchButton.setTitleColor(UIColor.blue, for: .normal)
         searchStackView.addArrangedSubview(searchButton)
+        
+        searchButton.setTitleColor(UIColor.systemBlue, for: .normal)
+        
+        let searchAction = UIAction(handler: { _ in store.send(.ui(.onTapStartSearch)) })
+        let clearAction = UIAction(handler: { [weak self] _ in
+            self?.textField?.resignFirstResponder()
+            store.send(.ui(.onTapClear))
+        })
 
         observe { [weak self] in
             guard let self else { return }
             
             if store.screenState.items.isEmpty {
+                searchButton.removeAction(clearAction, for: .touchUpInside)
+                searchButton.addAction(searchAction, for: .touchUpInside)
                 searchButton.setTitle("Найти", for: .normal)
-                searchButton.removeTarget(self, action: #selector(onTapClear), for: .touchUpInside)
-                searchButton.addTarget(self, action: #selector(onTapSearch), for: .touchUpInside)
             } else {
+                searchButton.removeAction(searchAction, for: .touchUpInside)
+                searchButton.addAction(clearAction, for: .touchUpInside)
                 searchButton.setTitle("Очистить", for: .normal)
-                searchButton.removeTarget(self, action: #selector(onTapSearch), for: .touchUpInside)
-                searchButton.addTarget(self, action: #selector(onTapClear), for: .touchUpInside)
             }
 
             switch store.screenState {
@@ -134,15 +139,6 @@ class UIKitTabVC: UIViewController, UISearchBarDelegate {
             subView.removeFromSuperview()
         }
     }
-    
-    @objc func onTapSearch() {
-        store.send(.ui(.onTapStartSearch))
-    }
-    
-    @objc func onTapClear() {
-        textField?.resignFirstResponder()
-        store.send(.ui(.onTapClear))
-    }
 }
 
 class SearchItemUIView: UIView {
@@ -170,9 +166,7 @@ class SearchItemUIView: UIView {
         addGestureRecognizer(recognizer)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     @objc func onTapGesture() {
         onTapped()
@@ -214,9 +208,7 @@ class CalendarEventView: UIView {
         addGestureRecognizer(recognizer)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     @objc func onTapGesture() {
         onTapped()
