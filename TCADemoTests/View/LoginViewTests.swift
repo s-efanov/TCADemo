@@ -23,4 +23,32 @@ struct LoginViewTests {
         try? await Task.sleep(nanoseconds: 100)
         assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
     }
+    
+    @Test @MainActor
+    func loginAbout() async {
+        let store = StoreOf<LoginReducer>(
+            initialState: LoginReducer.State(destination: .aboutApp(AboutReducer.State())),
+            reducer: { LoginReducer.MainReducer() }
+        )
+        
+        let view = LoginView(store: store)
+        assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    }
+    
+    @Test @MainActor
+    func loginWrongPassword() async {
+        let store = StoreOf<LoginReducer>(
+            initialState: LoginReducer.State(
+                destination: .wrongPassword(AlertState {
+                    TextState("Неверный пароль")
+                } actions: {
+                    ButtonState(role: .cancel, action: .ok) { TextState("ОК") }
+                })
+            ),
+            reducer: { LoginReducer.MainReducer() }
+        )
+        
+        let view = LoginView(store: store)
+        assertSnapshot(of: view, as: .image(layout: .device(config: .iPhone13Pro)))
+    }
 }
