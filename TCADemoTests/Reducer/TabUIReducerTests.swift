@@ -6,8 +6,8 @@ import ComposableArchitecture
 struct TabUIReducerTests {
     @Test @MainActor
     func onTapCalendarEvent() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.UIReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.UIReducer()
         }
         
         let calendarItem = CalendarItem(title: "title", from: "from", to: "to")
@@ -19,8 +19,8 @@ struct TabUIReducerTests {
     
     @Test @MainActor
     func onTapSearchItem() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.UIReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.UIReducer()
         }
         
         let searchItem = SearchItem(title: "title", type: "type")
@@ -32,8 +32,8 @@ struct TabUIReducerTests {
     
     @Test @MainActor
     func onTapStartSearch() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.UIReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.UIReducer()
         }
 
         await store.send(.ui(.onTapStartSearch))
@@ -42,8 +42,8 @@ struct TabUIReducerTests {
     
     @Test @MainActor
     func onTapClear() async {
-        let store = TestStore(initialState: TabReducer.State(searchText: "abc", screenState: .loading)) {
-            TabReducer.UIReducer()
+        let store = TestStore(initialState: SearchReducer.State(searchText: "abc", screenState: .loading)) {
+            SearchReducer.UIReducer()
         }
 
         await store.send(.ui(.onTapClear)) { state in

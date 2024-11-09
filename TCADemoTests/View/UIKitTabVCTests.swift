@@ -14,8 +14,8 @@ import ComposableArchitecture
 struct UIKitTabVCTests {
     @Test @MainActor
     func uiKitTabVCInitial() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(
                 calendarItems: [CalendarItem(title: "Title", from: "from", to: "to")],
                 screenState: .initial
             ),
@@ -28,8 +28,8 @@ struct UIKitTabVCTests {
     
     @Test @MainActor
     func uiKitTabVCLoading() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .loading),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .loading),
             reducer: { BindingReducer() }
         )
         
@@ -39,8 +39,8 @@ struct UIKitTabVCTests {
     
     @Test @MainActor
     func uiKitTabVCError() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .searchError),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .searchError),
             reducer: { BindingReducer() }
         )
         
@@ -50,8 +50,8 @@ struct UIKitTabVCTests {
     
     @Test @MainActor
     func uiKitTabVCSearchResult() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .searchResult([SearchItem(title: "Title", type: "Type")])),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .searchResult([SearchItem(title: "Title", type: "Type")])),
             reducer: { BindingReducer() }
         )
         
@@ -61,13 +61,13 @@ struct UIKitTabVCTests {
     
     @Test @MainActor
     func uiKitTabViewWithProfile() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(
                 path: StackState<TabPath.State>([
                     .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
                 ])
             ),
-            reducer: { TabReducer() }
+            reducer: { SearchReducer() }
         )
         
         let view = UIKitTabView(store: store)

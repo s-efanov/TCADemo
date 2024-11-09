@@ -13,8 +13,8 @@ import ComposableArchitecture
 struct TabMainReducerTests {
     @Test @MainActor
     func onAppear() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.MainReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.MainReducer()
         }
 
         await store.send(.onAppear)
@@ -23,8 +23,8 @@ struct TabMainReducerTests {
     
     @Test @MainActor
     func calendarRequestOnSuccess() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.MainReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.MainReducer()
         }
         
         let calendarItem = CalendarItem(title: "title", from: "from", to: "to")
@@ -36,8 +36,8 @@ struct TabMainReducerTests {
     
     @Test @MainActor
     func searchRequestOnSuccess() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.MainReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.MainReducer()
         }
         
         let search = SearchItem(title: "title", type: "type")
@@ -49,8 +49,8 @@ struct TabMainReducerTests {
     
     @Test @MainActor
     func path() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.MainReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.MainReducer()
         }
 
         await store.send(.calendarRequest(.start))

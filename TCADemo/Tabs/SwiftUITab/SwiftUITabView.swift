@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SwiftUITabView: View {
-    @Perception.Bindable var store: StoreOf<TabReducer>
+    @Perception.Bindable var store: StoreOf<SearchReducer>
     
     var body: some View {
         WithPerceptionTracking {

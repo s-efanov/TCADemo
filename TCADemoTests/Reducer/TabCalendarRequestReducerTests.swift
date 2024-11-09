@@ -17,8 +17,8 @@ struct TabCalendarRequestReducerTests {
             result: .success([CalendarItem(title: "Title", from: "from", to: "to")])
         )
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.CalendarRequestReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.CalendarRequestReducer()
         } withDependencies: {
             $0.calendarRepo = requestCalendarMock
         }
@@ -35,8 +35,8 @@ struct TabCalendarRequestReducerTests {
             result: .failure(NetworkError())
         )
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.CalendarRequestReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.CalendarRequestReducer()
         } withDependencies: {
             $0.calendarRepo = requestCalendarMock
         }

@@ -6,8 +6,8 @@ import ComposableArchitecture
 struct TabReducerTests {
     @Test @MainActor
     func onTapClear() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer()
         }
 
         await store.send(.searchRequest(.onError(NetworkError())))
@@ -15,8 +15,8 @@ struct TabReducerTests {
     
     @Test @MainActor
     func searchRequestOnSuccess() async {
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer()
         }
         
         let searchItem = SearchItem(title: "title", type: "type")

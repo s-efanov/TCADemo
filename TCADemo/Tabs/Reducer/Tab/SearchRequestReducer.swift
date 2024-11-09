@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 
-extension TabReducer {
+extension SearchReducer {
     @Reducer
     struct SearchRequestReducer {
         @Dependency(\.searchRepo) var searchRepo

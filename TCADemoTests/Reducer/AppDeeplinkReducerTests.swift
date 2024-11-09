@@ -66,7 +66,7 @@ struct AppDeeplinkReducerTests {
         await store.send(.onURLOppened(URL(string: "tcademo://swiftui/profile?title=Roman&type=person")!)) { state in
             state.destination = .tabs(TabsReducer.State(
                 currentTab: .swiftUI,
-                swiftUITab: TabReducer.State(
+                swiftUITab: SearchReducer.State(
                     path: StackState<TabPath.State>([
                         .profile(ProfileReducer.State(searchItem: SearchItem(title: "Roman", type: "person")))
                     ])
@@ -84,7 +84,7 @@ struct AppDeeplinkReducerTests {
         await store.send(.onURLOppened(URL(string: "tcademo://swiftui/event?title=Ev&from=a&to=b")!)) { state in
             state.destination = .tabs(TabsReducer.State(
                 currentTab: .swiftUI,
-                swiftUITab: TabReducer.State(
+                swiftUITab: SearchReducer.State(
                     path: StackState<TabPath.State>([
                         .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
                     ])
@@ -111,7 +111,7 @@ struct AppDeeplinkReducerTests {
         await store.send(.onURLOppened(URL(string: "tcademo://uikit/profile?title=Roman&type=person")!)) { state in
             state.destination = .tabs(TabsReducer.State(
                 currentTab: .uiKit,
-                uiKitTab: TabReducer.State(
+                uiKitTab: SearchReducer.State(
                     path: StackState<TabPath.State>([
                         .profile(ProfileReducer.State(searchItem: SearchItem(title: "Roman", type: "person")))
                     ])
@@ -129,7 +129,7 @@ struct AppDeeplinkReducerTests {
         await store.send(.onURLOppened(URL(string: "tcademo://uikit/event?title=Ev&from=a&to=b")!)) { state in
             state.destination = .tabs(TabsReducer.State(
                 currentTab: .uiKit,
-                uiKitTab: TabReducer.State(
+                uiKitTab: SearchReducer.State(
                     path: StackState<TabPath.State>([
                         .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
                     ])

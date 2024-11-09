@@ -2,7 +2,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct CalendarView: View {
-    @Perception.Bindable var store: StoreOf<TabReducer>
+    @Perception.Bindable var store: StoreOf<SearchReducer>
     
     var body: some View {
         WithPerceptionTracking {

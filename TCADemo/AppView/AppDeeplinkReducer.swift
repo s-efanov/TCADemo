@@ -40,7 +40,7 @@ extension AppReducer {
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
-                        swiftUITab: TabReducer.State(
+                        swiftUITab: SearchReducer.State(
                             path: StackState<TabPath.State>([
                                 .profile(ProfileReducer.State(searchItem: SearchItem(
                                     title: title,
@@ -55,7 +55,7 @@ extension AppReducer {
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .swiftUI,
-                        swiftUITab: TabReducer.State(
+                        swiftUITab: SearchReducer.State(
                             path: StackState<TabPath.State>([
                                 .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
                             ])
@@ -79,7 +79,7 @@ extension AppReducer {
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,
-                        uiKitTab: TabReducer.State(
+                        uiKitTab: SearchReducer.State(
                             path: StackState<TabPath.State>([
                                 .profile(ProfileReducer.State(searchItem: SearchItem(title: title, type: type)))
                             ])
@@ -91,7 +91,7 @@ extension AppReducer {
                 state.destination = .tabs(
                     TabsReducer.State(
                         currentTab: .uiKit,
-                        uiKitTab: TabReducer.State(
+                        uiKitTab: SearchReducer.State(
                             path: StackState<TabPath.State>([
                                 .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
                             ])

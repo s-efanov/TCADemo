@@ -17,8 +17,8 @@ struct TabSearchRequestReducerTests {
             result: .success([SearchItem(title: "Title", type: "type")])
         )
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.SearchRequestReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.SearchRequestReducer()
         } withDependencies: {
             $0.searchRepo = requestMock
         }
@@ -35,8 +35,8 @@ struct TabSearchRequestReducerTests {
             result: .failure(NetworkError())
         )
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.SearchRequestReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.SearchRequestReducer()
         } withDependencies: {
             $0.searchRepo = requestMock
         }

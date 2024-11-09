@@ -14,13 +14,13 @@ import ComposableArchitecture
 struct SwiftUITabViewTests {
     @Test @MainActor
     func swiftUITabViewWithProfile() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(
                 path: StackState<TabPath.State>([
                     .profile(ProfileReducer.State(searchItem: SearchItem(title: "Рома", type: "person")))
                 ])
             ),
-            reducer: { TabReducer() }
+            reducer: { SearchReducer() }
         )
         
         let view = SwiftUITabView(store: store)
@@ -29,13 +29,13 @@ struct SwiftUITabViewTests {
     
     @Test @MainActor
     func swiftUITabViewWithSearch() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(
                 path: StackState<TabPath.State>([
                     .event(EventReducer.State(calendarItem: CalendarItem(title: "Event", from: "10:00", to: "11:00")))
                 ])
             ),
-            reducer: { TabReducer() }
+            reducer: { SearchReducer() }
         )
         
         let view = SwiftUITabView(store: store)

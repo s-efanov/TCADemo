@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 
-extension TabReducer {
+extension SearchReducer {
     @Reducer
     struct UIReducer {
         func reduce(into state: inout State, action: Action) -> Effect<Action> {

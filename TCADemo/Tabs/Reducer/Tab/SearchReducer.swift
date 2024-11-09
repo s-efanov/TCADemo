@@ -8,7 +8,7 @@
 import ComposableArchitecture
 
 @Reducer
-struct TabReducer {
+struct SearchReducer {
     @ObservableState
     struct State: Equatable {
         @SharedReader(.searchEnabled) var searchEnabled

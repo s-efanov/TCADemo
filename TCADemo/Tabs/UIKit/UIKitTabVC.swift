@@ -10,7 +10,7 @@ import UIKit
 import ComposableArchitecture
 
 struct UIKitTabView: View {
-    let store: StoreOf<TabReducer>
+    let store: StoreOf<SearchReducer>
     
     var body: some View {
         WithPerceptionTracking {
@@ -22,14 +22,14 @@ struct UIKitTabView: View {
 }
 
 class UIKitTabVC: UIViewController, UISearchBarDelegate {
-    private let store: StoreOf<TabReducer>
+    private let store: StoreOf<SearchReducer>
     private let uiKitLabel = UILabel(frame: .zero)
     private let stackView = UIStackView()
     private let searchStackView = UIStackView()
     private let searchButton = UIButton(type: .custom)
     private var textField: UITextField?
     
-    init(store: StoreOf<TabReducer>) {
+    init(store: StoreOf<SearchReducer>) {
         self.store = store
         super.init(nibName: nil, bundle: nil)
     }
@@ -217,9 +217,9 @@ class CalendarEventView: UIView {
 
 
 class UIKitNavController: NavigationStackController {
-    private var store: StoreOf<TabReducer>!
+    private var store: StoreOf<SearchReducer>!
     
-    convenience init(store: StoreOf<TabReducer>) {
+    convenience init(store: StoreOf<SearchReducer>) {
         @UIBindable var store = store
         
         self.init(path: $store.scope(state: \.path, action: \.path)) {

@@ -14,8 +14,8 @@ import ComposableArchitecture
 struct SwiftUICalendarViewTests {
     @Test @MainActor
     func swiftUITabVCInitial() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(
                 calendarItems: [CalendarItem(title: "Title", from: "from", to: "to")],
                 screenState: .initial
             ),
@@ -28,8 +28,8 @@ struct SwiftUICalendarViewTests {
     
     @Test @MainActor
     func swiftUITabVCLoading() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .loading),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .loading),
             reducer: { BindingReducer() }
         )
         
@@ -39,8 +39,8 @@ struct SwiftUICalendarViewTests {
     
     @Test @MainActor
     func swiftUITabVCError() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .searchError),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .searchError),
             reducer: { BindingReducer() }
         )
         
@@ -50,8 +50,8 @@ struct SwiftUICalendarViewTests {
     
     @Test @MainActor
     func swiftUITabVCSearchResult() {
-        let store = StoreOf<TabReducer>(
-            initialState: TabReducer.State(screenState: .searchResult([SearchItem(title: "Title", type: "Type")])),
+        let store = StoreOf<SearchReducer>(
+            initialState: SearchReducer.State(screenState: .searchResult([SearchItem(title: "Title", type: "Type")])),
             reducer: { BindingReducer() }
         )
         

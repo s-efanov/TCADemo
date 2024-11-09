@@ -15,8 +15,8 @@ struct TabAnalyticReducerTests {
     func onTapStartSearch() async {
         let analyticMock = AnalyticServiceMock()
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.AnalyticReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.AnalyticReducer()
         } withDependencies: {
             $0.analyticService = analyticMock
         }
@@ -29,8 +29,8 @@ struct TabAnalyticReducerTests {
     func onTapClear() async {
         let analyticMock = AnalyticServiceMock()
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.AnalyticReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.AnalyticReducer()
         } withDependencies: {
             $0.analyticService = analyticMock
         }
@@ -43,8 +43,8 @@ struct TabAnalyticReducerTests {
     func onTapSearchItem() async {
         let analyticMock = AnalyticServiceMock()
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.AnalyticReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.AnalyticReducer()
         } withDependencies: {
             $0.analyticService = analyticMock
         }
@@ -57,8 +57,8 @@ struct TabAnalyticReducerTests {
     func onTapCalendarEvent() async {
         let analyticMock = AnalyticServiceMock()
         
-        let store = TestStore(initialState: TabReducer.State()) {
-            TabReducer.AnalyticReducer()
+        let store = TestStore(initialState: SearchReducer.State()) {
+            SearchReducer.AnalyticReducer()
         } withDependencies: {
             $0.analyticService = analyticMock
         }
