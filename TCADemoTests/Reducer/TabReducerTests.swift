@@ -10,7 +10,9 @@ struct TabReducerTests {
             SearchReducer()
         }
 
-        await store.send(.searchRequest(.onError(NetworkError())))
+        await store.send(.searchRequest(.onError(NetworkError()))) {
+            $0.screenState = .searchError
+        }
     }
     
     @Test @MainActor

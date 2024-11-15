@@ -20,6 +20,9 @@ extension SearchReducer {
             case let .searchRequest(.onSuccess(items)):
                 state.screenState = .searchResult(items)
                 return .none
+            case .searchRequest(.onError):
+                state.screenState = .searchError
+                return .none
             case .path, .calendarRequest, .searchRequest, .binding, .ui:
                 return .none
             }

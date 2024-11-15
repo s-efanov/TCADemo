@@ -2,7 +2,7 @@ import Dependencies
 import Foundation
 
 struct SearchRepoImpl: SearchRepo {
-    func get() async throws -> [SearchItem] {
+    func get(_ text: String) async throws -> [SearchItem] {
         try decode(data: try await request())
     }
     

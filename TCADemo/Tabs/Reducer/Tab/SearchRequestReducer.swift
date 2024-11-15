@@ -15,10 +15,10 @@ extension SearchReducer {
         func reduce(into state: inout State, action: Action) -> Effect<Action> {
             guard case let .searchRequest(searchAction) = action else { return .none }
             switch searchAction {
-            case .start:
+            case let .start(text):
                 return .run { send in
                     do {
-                        try await send(.searchRequest(.onSuccess(searchRepo.get())))
+                        try await send(.searchRequest(.onSuccess(searchRepo.get(text))))
                     } catch {
                         await send(.searchRequest(.onError(NetworkError(error: error))))
                     }
@@ -32,7 +32,7 @@ extension SearchReducer {
     }
     
     enum SearchReducerAction: Equatable {
-        case start
+        case start(String)
         case onSuccess([SearchItem])
         case onError(NetworkError)
     }

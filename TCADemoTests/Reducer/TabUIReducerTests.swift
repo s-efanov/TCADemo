@@ -36,8 +36,10 @@ struct TabUIReducerTests {
             SearchReducer.UIReducer()
         }
 
-        await store.send(.ui(.onTapStartSearch))
-        await store.receive(.searchRequest(.start))
+        await store.send(.ui(.onTapStartSearch)) {
+            $0.screenState = .loading
+        }
+        await store.receive(.searchRequest(.start("")))
     }
     
     @Test @MainActor

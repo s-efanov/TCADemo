@@ -1,7 +1,7 @@
 import Foundation
 
 protocol SearchRepo {
-    func get() async throws -> [SearchItem]
+    func get(_ text: String) async throws -> [SearchItem]
 }
 
 struct SearchItem: Codable, Hashable {

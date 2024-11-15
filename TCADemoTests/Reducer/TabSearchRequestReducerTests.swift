@@ -23,7 +23,7 @@ struct TabSearchRequestReducerTests {
             $0.searchRepo = requestMock
         }
 
-        await store.send(.searchRequest(.start))
+        await store.send(.searchRequest(.start("text")))
         await store.receive(.searchRequest(.onSuccess(
             [SearchItem(title: "Title", type: "type")]
         )))
@@ -41,7 +41,7 @@ struct TabSearchRequestReducerTests {
             $0.searchRepo = requestMock
         }
 
-        await store.send(.searchRequest(.start))
+        await store.send(.searchRequest(.start("Text")))
         await store.receive(.searchRequest(.onError(
             NetworkError()
         )))

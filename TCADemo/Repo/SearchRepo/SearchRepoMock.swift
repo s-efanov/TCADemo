@@ -3,7 +3,7 @@ import Foundation
 struct SearchRepoMock: SearchRepo {
     var result: Result<[SearchItem], Error>
     
-    func get() async throws -> [SearchItem] {
+    func get(_ text: String) async throws -> [SearchItem] {
         switch result {
         case let .success(success):
             return success

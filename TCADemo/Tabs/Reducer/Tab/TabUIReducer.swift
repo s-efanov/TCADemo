@@ -20,7 +20,8 @@ extension SearchReducer {
                 state.path.append(.profile(ProfileReducer.State(searchItem: item)))
                 return .none
             case .onTapStartSearch:
-                return .send(.searchRequest(.start))
+                state.screenState = .loading
+                return .send(.searchRequest(.start(state.searchText)))
             case .onTapClear:
                 state.searchText = ""
                 state.screenState = .initial
